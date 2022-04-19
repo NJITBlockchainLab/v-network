@@ -70,13 +70,13 @@ stdout_logfile=/tmp/node5.log
 stderr_logfile=/tmp/node5.log
 
 [program:node6]
-command=start_indy_node Node5 $HOST 9711 $HOST 9712
+command=start_indy_node Node6 $HOST 9711 $HOST 9712
 directory=/home/indy
 stdout_logfile=/tmp/node6.log
 stderr_logfile=/tmp/node6.log
 
 [program:node7]
-command=start_indy_node Node5 $HOST 9713 $HOST 9714
+command=start_indy_node Node7 $HOST 9713 $HOST 9714
 directory=/home/indy
 stdout_logfile=/tmp/node7.log
 stderr_logfile=/tmp/node7.log
