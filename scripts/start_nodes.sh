@@ -4,7 +4,7 @@ set -e
 
 HOST="${HOST:-0.0.0.0}"
 START_PORT="9700"
-NODE_NUM="1 2 3 4 5 6 7"
+NODE_NUM="1 2 3 4 5 6 7 8 9 10"
 
 if [ ! -d "/home/indy/ledger/sandbox/keys" ]; then
     echo "Ledger does not exist - Creating..."
@@ -70,19 +70,37 @@ stdout_logfile=/tmp/node5.log
 stderr_logfile=/tmp/node5.log
 
 [program:node6]
-command=start_indy_node Node5 $HOST 9711 $HOST 9712
+command=start_indy_node Node6 $HOST 9711 $HOST 9712
 directory=/home/indy
 stdout_logfile=/tmp/node6.log
 stderr_logfile=/tmp/node6.log
 
 [program:node7]
-command=start_indy_node Node5 $HOST 9713 $HOST 9714
+command=start_indy_node Node7 $HOST 9713 $HOST 9714
 directory=/home/indy
 stdout_logfile=/tmp/node7.log
 stderr_logfile=/tmp/node7.log
 
+[program:node8]
+command=start_indy_node Node8 $HOST 9715 $HOST 9716
+directory=/home/indy
+stdout_logfile=/tmp/node8.log
+stderr_logfile=/tmp/node8.log
+
+[program:node9]
+command=start_indy_node Node9 $HOST 9717 $HOST 9718
+directory=/home/indy
+stdout_logfile=/tmp/node9.log
+stderr_logfile=/tmp/node9.log
+
+[program:node10]
+command=start_indy_node Node10 $HOST 9719 $HOST 9720
+directory=/home/indy
+stdout_logfile=/tmp/node10.log
+stderr_logfile=/tmp/node10.log
+
 [program:printlogs]
-command=tail -F /tmp/supervisord.log /tmp/node1.log /tmp/node2.log /tmp/node3.log /tmp/node4.log /tmp/node5.log /tmp/node6.log /tmp/node7.log
+command=tail -F /tmp/supervisord.log /tmp/node1.log /tmp/node2.log /tmp/node3.log /tmp/node4.log /tmp/node5.log /tmp/node6.log /tmp/node7.log /tmp/node8.log /tmp/node9.log /tmp/node10.log
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 
