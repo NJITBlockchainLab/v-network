@@ -4,7 +4,7 @@ set -e
 
 HOST="${HOST:-0.0.0.0}"
 START_PORT="9700"
-NODE_NUM="1 2 3 4 5 6 7 8 9 10"
+NODE_NUM="1 2 3 4 5 6 7 8 9 10 11 12 13"
 
 if [ ! -d "/home/indy/ledger/sandbox/keys" ]; then
     echo "Ledger does not exist - Creating..."
@@ -25,7 +25,7 @@ cat <<EOF > supervisord.conf
 [supervisord]
 logfile = /tmp/supervisord.log
 logfile_maxbytes = 50MB
-logfile_backups=10
+logfile_backups=13
 loglevel = info
 pidfile = /tmp/supervisord.pid
 nodaemon = true
@@ -99,8 +99,26 @@ directory=/home/indy
 stdout_logfile=/tmp/node10.log
 stderr_logfile=/tmp/node10.log
 
+[program:node11]
+command=start_indy_node Node11 $HOST 9721 $HOST 9722
+directory=/home/indy
+stdout_logfile=/tmp/node11.log
+stderr_logfile=/tmp/node11.log
+
+[program:node12]
+command=start_indy_node Node12 $HOST 9723 $HOST 9724
+directory=/home/indy
+stdout_logfile=/tmp/node12.log
+stderr_logfile=/tmp/node12.log
+
+[program:node13]
+command=start_indy_node Node13 $HOST 9725 $HOST 9726
+directory=/home/indy
+stdout_logfile=/tmp/node13.log
+stderr_logfile=/tmp/node13.log
+
 [program:printlogs]
-command=tail -F /tmp/supervisord.log /tmp/node1.log /tmp/node2.log /tmp/node3.log /tmp/node4.log /tmp/node5.log /tmp/node6.log /tmp/node7.log /tmp/node8.log /tmp/node9.log /tmp/node10.log
+command=tail -F /tmp/supervisord.log /tmp/node1.log /tmp/node2.log /tmp/node3.log /tmp/node4.log /tmp/node5.log /tmp/node6.log /tmp/node7.log /tmp/node8.log /tmp/node9.log /tmp/node10.log /tmp/node11.log /tmp/node12.log /tmp/node13.log
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 
