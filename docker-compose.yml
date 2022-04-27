@@ -107,6 +107,12 @@ services:
             - 9724:9724
             - 9725:9725
             - 9726:9726
+            - 9727:9727
+            - 9728:9728
+            - 9729:9729
+            - 9730:9730
+            - 9731:9731
+            - 9732:9732
         environment:
             - IP=${IP}
             - IPS=${IPS}
@@ -337,6 +343,57 @@ services:
         volumes:
             - node13-data:/home/indy/ledger
 
+    node14:
+        image: von-network-base
+        command: 'bash -c ''./scripts/start_node.sh 14'''
+        networks:
+            - von
+        ports:
+            - 9727:9727
+            - 9728:9728
+        environment:
+            - IP=${IP}
+            - IPS=${IPS}
+            - DOCKERHOST=${DOCKERHOST}
+            - LOG_LEVEL=${LOG_LEVEL}
+            - RUST_LOG=${RUST_LOG}
+        volumes:
+            - node14-data:/home/indy/ledger
+
+    node15:
+        image: von-network-base
+        command: 'bash -c ''./scripts/start_node.sh 15'''
+        networks:
+            - von
+        ports:
+            - 9729:9729
+            - 9730:9730
+        environment:
+            - IP=${IP}
+            - IPS=${IPS}
+            - DOCKERHOST=${DOCKERHOST}
+            - LOG_LEVEL=${LOG_LEVEL}
+            - RUST_LOG=${RUST_LOG}
+        volumes:
+            - node15-data:/home/indy/ledger
+
+    node16:
+        image: von-network-base
+        command: 'bash -c ''./scripts/start_node.sh 16'''
+        networks:
+            - von
+        ports:
+            - 9731:9731
+            - 9732:9732
+        environment:
+            - IP=${IP}
+            - IPS=${IPS}
+            - DOCKERHOST=${DOCKERHOST}
+            - LOG_LEVEL=${LOG_LEVEL}
+            - RUST_LOG=${RUST_LOG}
+        volumes:
+            - node16-data:/home/indy/ledger
+
 networks:
     von:
 
@@ -357,4 +414,7 @@ volumes:
     node11-data:
     node12-data:
     node13-data:
+    node14-data:
+    node15-data:
+    node16-data:
     nodes-data:
