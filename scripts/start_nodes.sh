@@ -4,7 +4,7 @@ set -e
 
 HOST="${HOST:-0.0.0.0}"
 START_PORT="9700"
-NODE_NUM="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25"
+NODE_NUM="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28"
 
 if [ ! -d "/home/indy/ledger/sandbox/keys" ]; then
     echo "Ledger does not exist - Creating..."
@@ -25,7 +25,7 @@ cat <<EOF > supervisord.conf
 [supervisord]
 logfile = /tmp/supervisord.log
 logfile_maxbytes = 50MB
-logfile_backups=25
+logfile_backups=28
 loglevel = info
 pidfile = /tmp/supervisord.pid
 nodaemon = true
@@ -189,8 +189,26 @@ directory=/home/indy
 stdout_logfile=/tmp/node25.log
 stderr_logfile=/tmp/node25.log
 
+[program:node26]
+command=start_indy_node Node26 $HOST 9751 $HOST 9752
+directory=/home/indy
+stdout_logfile=/tmp/node26.log
+stderr_logfile=/tmp/node26.log
+
+[program:node27]
+command=start_indy_node Node27 $HOST 9753 $HOST 9754
+directory=/home/indy
+stdout_logfile=/tmp/node27.log
+stderr_logfile=/tmp/node27.log
+
+[program:node28]
+command=start_indy_node Node28 $HOST 9755 $HOST 9756
+directory=/home/indy
+stdout_logfile=/tmp/node28.log
+stderr_logfile=/tmp/node28.log
+
 [program:printlogs]
-command=tail -F /tmp/supervisord.log /tmp/node1.log /tmp/node2.log /tmp/node3.log /tmp/node4.log /tmp/node5.log /tmp/node6.log /tmp/node7.log /tmp/node8.log /tmp/node9.log /tmp/node10.log /tmp/node11.log /tmp/node12.log /tmp/node13.log /tmp/node14.log /tmp/node15.log /tmp/node16.log /tmp/node17.log /tmp/node18.log /tmp/node19.log /tmp/node20.log /tmp/node21.log /tmp/node22.log /tmp/node23.log /tmp/node24.log /tmp/node25.log
+command=tail -F /tmp/supervisord.log /tmp/node1.log /tmp/node2.log /tmp/node3.log /tmp/node4.log /tmp/node5.log /tmp/node6.log /tmp/node7.log /tmp/node8.log /tmp/node9.log /tmp/node10.log /tmp/node11.log /tmp/node12.log /tmp/node13.log /tmp/node14.log /tmp/node15.log /tmp/node16.log /tmp/node17.log /tmp/node18.log /tmp/node19.log /tmp/node20.log /tmp/node21.log /tmp/node22.log /tmp/node23.log /tmp/node24.log /tmp/node25.log /tmp/node26.log /tmp/node27.log /tmp/node28.log
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 
