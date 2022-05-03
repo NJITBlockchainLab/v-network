@@ -275,6 +275,10 @@ services:
             - 9892:9892
             - 9893:9893
             - 9894:9894
+            - 9895:9895
+            - 9896:9896
+            - 9897:9897
+            - 9898:9898
         environment:
             - IP=${IP}
             - IPS=${IPS}
@@ -1933,6 +1937,40 @@ services:
         volumes:
             - node97-data:/home/indy/ledger
 
+    node98:
+        image: von-network-base
+        command: 'bash -c ''./scripts/start_node.sh 98'''
+        networks:
+            - von
+        ports:
+            - 9895:9895
+            - 9896:9896
+        environment:
+            - IP=${IP}
+            - IPS=${IPS}
+            - DOCKERHOST=${DOCKERHOST}
+            - LOG_LEVEL=${LOG_LEVEL}
+            - RUST_LOG=${RUST_LOG}
+        volumes:
+            - node98-data:/home/indy/ledger
+
+    node99:
+        image: von-network-base
+        command: 'bash -c ''./scripts/start_node.sh 99'''
+        networks:
+            - von
+        ports:
+            - 9897:9897
+            - 9898:9898
+        environment:
+            - IP=${IP}
+            - IPS=${IPS}
+            - DOCKERHOST=${DOCKERHOST}
+            - LOG_LEVEL=${LOG_LEVEL}
+            - RUST_LOG=${RUST_LOG}
+        volumes:
+            - node99-data:/home/indy/ledger
+
 networks:
     von:
 
@@ -2037,4 +2075,6 @@ volumes:
     node95-data:
     node96-data:
     node97-data:
+    node98-data:
+    node99-data:
     nodes-data:

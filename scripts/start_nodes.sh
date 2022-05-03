@@ -4,7 +4,7 @@ set -e
 
 HOST="${HOST:-0.0.0.0}"
 START_PORT="9700"
-NODE_NUM="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97"
+NODE_NUM="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99"
 
 if [ ! -d "/home/indy/ledger/sandbox/keys" ]; then
     echo "Ledger does not exist - Creating..."
@@ -25,7 +25,7 @@ cat <<EOF > supervisord.conf
 [supervisord]
 logfile = /tmp/supervisord.log
 logfile_maxbytes = 50MB
-logfile_backups=97
+logfile_backups=99
 loglevel = info
 pidfile = /tmp/supervisord.pid
 nodaemon = true
@@ -621,8 +621,20 @@ directory=/home/indy
 stdout_logfile=/tmp/node97.log
 stderr_logfile=/tmp/node97.log
 
+[program:node98]
+command=start_indy_node Node98 $HOST 9895 $HOST 9896
+directory=/home/indy
+stdout_logfile=/tmp/node98.log
+stderr_logfile=/tmp/node98.log
+
+[program:node99]
+command=start_indy_node Node99 $HOST 9897 $HOST 9898
+directory=/home/indy
+stdout_logfile=/tmp/node99.log
+stderr_logfile=/tmp/node99.log
+
 [program:printlogs]
-command=tail -F /tmp/supervisord.log /tmp/node1.log /tmp/node2.log /tmp/node3.log /tmp/node4.log /tmp/node5.log /tmp/node6.log /tmp/node7.log /tmp/node8.log /tmp/node9.log /tmp/node10.log /tmp/node11.log /tmp/node12.log /tmp/node13.log /tmp/node14.log /tmp/node15.log /tmp/node16.log /tmp/node17.log /tmp/node18.log /tmp/node19.log /tmp/node20.log /tmp/node21.log /tmp/node22.log /tmp/node23.log /tmp/node24.log /tmp/node25.log /tmp/node26.log /tmp/node27.log /tmp/node28.log /tmp/node29.log /tmp/node30.log /tmp/node31.log /tmp/node32.log /tmp/node33.log /tmp/node34.log /tmp/node35.log /tmp/node36.log /tmp/node37.log /tmp/node38.log /tmp/node39.log /tmp/node40.log /tmp/node41.log /tmp/node42.log /tmp/node43.log /tmp/node44.log /tmp/node45.log /tmp/node46.log /tmp/node47.log /tmp/node48.log /tmp/node49.log /tmp/node50.log /tmp/node51.log /tmp/node52.log /tmp/node53.log /tmp/node54.log /tmp/node55.log /tmp/node56.log /tmp/node57.log /tmp/node58.log /tmp/node59.log /tmp/node60.log /tmp/node61.log /tmp/node62.log /tmp/node63.log /tmp/node64.log /tmp/node65.log /tmp/node66.log /tmp/node67.log /tmp/node68.log /tmp/node69.log /tmp/node70.log /tmp/node71.log /tmp/node72.log /tmp/node73.log /tmp/node74.log /tmp/node75.log /tmp/node76.log /tmp/node77.log /tmp/node78.log /tmp/node79.log /tmp/node80.log /tmp/node81.log /tmp/node82.log /tmp/node83.log /tmp/node84.log /tmp/node85.log /tmp/node86.log /tmp/node87.log /tmp/node88.log /tmp/node89.log /tmp/node90.log /tmp/node91.log /tmp/node92.log /tmp/node93.log /tmp/node94.log /tmp/node95.log /tmp/node96.log /tmp/node97.log
+command=tail -F /tmp/supervisord.log /tmp/node1.log /tmp/node2.log /tmp/node3.log /tmp/node4.log /tmp/node5.log /tmp/node6.log /tmp/node7.log /tmp/node8.log /tmp/node9.log /tmp/node10.log /tmp/node11.log /tmp/node12.log /tmp/node13.log /tmp/node14.log /tmp/node15.log /tmp/node16.log /tmp/node17.log /tmp/node18.log /tmp/node19.log /tmp/node20.log /tmp/node21.log /tmp/node22.log /tmp/node23.log /tmp/node24.log /tmp/node25.log /tmp/node26.log /tmp/node27.log /tmp/node28.log /tmp/node29.log /tmp/node30.log /tmp/node31.log /tmp/node32.log /tmp/node33.log /tmp/node34.log /tmp/node35.log /tmp/node36.log /tmp/node37.log /tmp/node38.log /tmp/node39.log /tmp/node40.log /tmp/node41.log /tmp/node42.log /tmp/node43.log /tmp/node44.log /tmp/node45.log /tmp/node46.log /tmp/node47.log /tmp/node48.log /tmp/node49.log /tmp/node50.log /tmp/node51.log /tmp/node52.log /tmp/node53.log /tmp/node54.log /tmp/node55.log /tmp/node56.log /tmp/node57.log /tmp/node58.log /tmp/node59.log /tmp/node60.log /tmp/node61.log /tmp/node62.log /tmp/node63.log /tmp/node64.log /tmp/node65.log /tmp/node66.log /tmp/node67.log /tmp/node68.log /tmp/node69.log /tmp/node70.log /tmp/node71.log /tmp/node72.log /tmp/node73.log /tmp/node74.log /tmp/node75.log /tmp/node76.log /tmp/node77.log /tmp/node78.log /tmp/node79.log /tmp/node80.log /tmp/node81.log /tmp/node82.log /tmp/node83.log /tmp/node84.log /tmp/node85.log /tmp/node86.log /tmp/node87.log /tmp/node88.log /tmp/node89.log /tmp/node90.log /tmp/node91.log /tmp/node92.log /tmp/node93.log /tmp/node94.log /tmp/node95.log /tmp/node96.log /tmp/node97.log /tmp/node98.log /tmp/node99.log
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 
