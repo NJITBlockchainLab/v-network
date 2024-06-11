@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% include 'meta.html' %}
+  <style>
+   .panel {
+	margin-bottom: 1.5rem;
+	overflow: hidden;
+}
+.panel-heading, .panel-body {
+	overflow: hidden;
+	padding: 0.25rem 0.7rem;
+}
+.panel-body p {
+	margin: 0.5rem 0;
+}
+.panel-default {
+	background: #f0f3ff;
+	box-shadow: 0 4px 3px 3px rgba(0, 0, 0, 0.02);
+}
+.panel-default .panel-heading {
+	background: #1c6da6;
+	border-bottom: 1px solid #eee;
+	color: #fafaec;
+}
+.panel-default > .panel-body {
+	border: 1px solid #e0e6ee;
+	border-radius: 0.5rem;
+	padding-top: 10px;
+}
+.panel-default > .panel-heading {
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.panel-default > .panel-heading + .panel-body {
+  border-top: none;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.panel-info {
+	background: #f0f3ff;
+	border: 1px solid #89a;
+	border-radius: 0.5rem;
+	box-shadow: 0 4px 3px 3px rgba(0, 0, 0, 0.02);
+}
+
+.panel-side {
+	background-color: #f7f6f6;
+	border: 2px solid #f0ecec;
+	border-radius: 0.5rem;
+	box-shadow: 0 4px 3px 3px rgba(0, 0, 0, 0.02);
+}
+.panel-side .panel-heading {
+	color: #585555;
+}
+.panel-side .panel-heading::after {
+	background: #fdfdfd;
+	border-bottom: 1px solid #ebe6e6;
+	border-radius: 3px;
+	content: ' ';
+	display: block;
+	height: 3px;
+}
+
+.panel-heading h2 {
+	padding: 0;
+	margin: 0;
+}
+
+.top-label {
+	color: #555;
+	font-size: 95%;
+	font-weight: 600;
+	line-height: 1.6;
+}
+.tool-tag {
+	-background: rgba(254, 253, 237, 1.0);
+	border-radius: 2px;
+	-border: 1px solid rgba(215, 220, 255, 0.9);
+	color: #555;
+	display: inline-block;
+	font-size: 0.75rem;
+	font-weight: 600;
+	margin-left: 1rem;
+	padding: 1.5px 4px;
+	vertical-align: 0.1rem;
+}
+
+.error {
+	color: #b55;
+}
+.warning {
+	color: #a83;
+}
+.panel_wrapper {
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 2rem auto;
+}
+</style>
+</head>
+
+<body>
+  {% include 'header.html' %}
+  <main id="vue-outer">
+    <div class="panel_wrapper">
+    {% raw %} 
+    <div class="panel panel-default authorize" v-if="register_new_dids">
+      <div class="panel-heading">
+        <h2>
+          <span class="fa fa-key"></span>
+          Authenticate a New DID
+        </h2>
+      </div>
+      <div class="panel-body" v-show="true">
+        <p>
+          Easily write a new DID to the ledger for new identity owners.
+        </p>
+        <form action="/register" method="get" accept-charset="utf-8" @submit.prevent="register">
+          <div class="form-group">
+            <input type="radio" value="seed" v-model="reg_info.reg_type" id="reg-seed">
+            <label for="reg-seed" class="tool-label inline">Register from seed</label>
+            &nbsp; <input type="radio" value="did" v-model="reg_info.reg_type" id="reg-did">
+            <label for="reg-did" class="tool-label inline">Register from DID</label>
+          </div>
+
+          <div class="form-group" v-if="reg_info.reg_type == 'seed'">
+            <label class="tool-label">Wallet seed (32 characters or base64)</label>
+            <input class="tool-input wallet-seed" type="text" name="seed" v-model="reg_info.seed" required>
+          </div>
+          <div class="form-group">
+            <label class="tool-label">DID <template v-if="reg_info.reg_type == 'seed'">(optional)</template></label>
+            <input class="tool-input wallet-seed" type="text" name="did" v-model="reg_info.did"
+              :required="reg_info.reg_type == 'did'">
+          </div>
+          <div class="form-group" v-if="reg_info.reg_type == 'did'">
+            <label class="tool-label">Verkey</label>
+            <input class="tool-input wallet-seed" type="text" name="verkey" v-model="reg_info.verkey" required>
+          </div>
+          <div class="form-group">
+            <label class="tool-label">Alias (optional)</label>
+            <input class="tool-input wallet-seed" type="text" name="alias" v-model="reg_info.alias">
+          </div>
+          <div class="form-group">
+            <label class="tool-label">Role</label>
+            <select name="role" v-model="reg_info.role">
+              <option value="">(None)</option>
+              <option v-for="opt in role_options" :value="opt.value">{{opt.label}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button class="tool-button" type="submit" name="register"><span class="fa fa-sign-in left"></span>Register
+              DID</button>
+          </div>
+        </form>
+
+        <div class="register-result" v-if="reg_result">
+          <h3>Identity successfully registered:</h3>
+          <code>
+                <span v-if="reg_result.seed"><b>Seed: </b> {{reg_result.seed}}<br></span>
+                <b>DID: </b> {{reg_result.did}}<br>
+                <b>Verkey:</b> {{reg_result.verkey}}
+              </code>
+             
+        </div>
+        <div class="error register-error" v-if="reg_error">
+          Error: identity not registered.
+        </div>
+      </div>
+    </div>
+    {% endraw %}
+  </div>
+  </main>
+  <script src="include/js/index.js" type="text/javascript"></script>
+</body>
+
+</html>

@@ -73,6 +73,7 @@ var app = new Vue({
     reqno: 0,
     txn_type: '',
     txns: [],
+    detailSelected: ''
   },
   mounted: function () {
     if (window.history && history.pushState) {
@@ -102,6 +103,9 @@ var app = new Vue({
     }
   },
   methods: {
+    detailClick: function (item) {
+      this.detailSelected = item;
+    },
     load: function () {
       this.loadPageParams();
       this.loadPage();
@@ -142,6 +146,7 @@ var app = new Vue({
     },
     showEntry: function (ident) {
       this.navToPage(ident);
+      this.detailSelected = '';
     },
     showLedger: function (value) {
       this.ledger = value;
@@ -149,6 +154,7 @@ var app = new Vue({
     },
     updateLedger: function () {
       this.navToPage(null, { page: 1, query: this.query, txn_type: this.txn_type });
+      this.detailSelected = '';
     },
     updateQuery: function (q) {
       this.query = q;
@@ -156,6 +162,7 @@ var app = new Vue({
     },
     clearFilter: function () {
       this.navToPage(null, { page: 1, query: '', txn_type: '' });
+      this.detailSelected = '';
     },
     entryUrl: function (ident) {
       var url = '/browse/' + this.ledger;
@@ -281,6 +288,9 @@ var app = new Vue({
         };
         this.loadTxns(data.results);
       }
+      if (this.nav.pages == null) {
+        this.detailClick(this.txns[0]);
+      };
       this.error = false;
       this.loaded = true;
       this.loading = false;
