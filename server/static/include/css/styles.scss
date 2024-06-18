@@ -12,7 +12,7 @@ $color_black: #000;
 $font-family_sans: "Open Sans", sans-serif;
 $font-family_mono: monospace;
 $color_primary: #1c6da6;
-$color_background: #0b1f61;
+$color_background: #15396c;
 $color_shadow: rgba(0, 0, 0, 0.442);
 $color_light: rgb(250, 250, 250);
 
@@ -321,6 +321,7 @@ button {
 		display: block;
 		min-width: 1.5em;
 		padding: 0.25em 0.8em;
+		color: inherit;
 	}
 
 	.page-text {
@@ -535,13 +536,15 @@ button {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	margin-bottom: 2rem;
 
 	.ledger_main {
 		margin-top: 2rem;
-		margin-left: 2rem;
 
 		@media screen and (max-width: 1400px) {
 			margin-right: 2rem;
+			margin-left: 2rem;
+			overflow: hidden;
 		}
 
 		.ledger-heading {
@@ -609,12 +612,15 @@ button {
 			padding: 0.4rem 1.4rem;
 			align-items: center;
 			font-weight: 500;
+
+			.ledger_count {
+				margin-right: 2rem;
+			}
 		}
 
 		.txn_table_main {
 			display: table;
 			font-size: 90%;
-			width: 100%;
 
 			.txn_table_header {
 				display: table-header-group;
@@ -644,12 +650,12 @@ button {
 				cursor: pointer;
 
 				&.active {
-					background-color: rgb(215, 215, 215);
+					background-color: rgb(235, 235, 235);
 					box-shadow: inset 0 0px 5px 1px rgba(0, 0, 0, 0.05);
 				}
 
 				&:hover {
-					background-color: rgb(220, 220, 220);
+					background-color: rgb(225, 225, 225);
 				}
 
 				.txn_table_entry {
@@ -659,13 +665,15 @@ button {
 					vertical-align: middle;
 
 					&:last-child {
-						text-wrap: wrap;
-						word-break: break-all;
+						max-width: 500px;
+						text-overflow: ellipsis;
+						overflow: hidden;
 
 						@media screen and (max-width: 650px) {
 							display: none;
 						}
 					}
+
 				}
 			}
 		}
@@ -674,15 +682,14 @@ button {
 
 
 	.txn_table_right {
-		margin-top: 1.5rem;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
 		padding: 2rem;
 		border: 1px solid #89a;
 		box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.12);
 		text-wrap: wrap;
 		word-break: break-all;
-		max-width: 600px;
-		min-width: 400px;
-		flex: 1;
+		width: 550px;
 
 		.detail_heading {
 			font-size: 1.2rem;
@@ -777,6 +784,8 @@ button {
 						font-family: $font-family_mono;
 						text-wrap: wrap;
 						overflow-y: auto;
+						box-sizing: border-box;
+						padding-right: 50px;
 					}
 				}
 			}
@@ -845,22 +854,35 @@ main {
 }
 
 footer {
-	background-color: $color_primary;
+	background-color: $color_background;
 	color: $color_white;
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
-    height: 100px;
+	min-height: 100px;
+	padding: 2rem 0;
 
 	.footer_wrapper {
 		flex: 1;
 		max-width: 1440px;
 		display: flex;
 		justify-content: space-around;
-		a {
-			font-weight: 500;
-			color: white;
+
+		li {
+			font-weight: 600;
+
+			a {
+				font-weight: 300;
+				color: white;
+				text-decoration: underline;
+			}
+
+			&:first-child {
+				margin-bottom: 0.8rem;
+			}
 		}
+
 	}
 
 }
